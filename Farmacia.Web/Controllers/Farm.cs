@@ -1,4 +1,4 @@
-﻿using Farmacia.Domain.Entities;
+﻿    using Farmacia.Domain.Entities;
 using Farmacia.Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 
