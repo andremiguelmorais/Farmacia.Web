@@ -98,9 +98,18 @@ namespace Farmacia.Infrastructure.Data
         Name = "Johnson & Johnson Portugal",
         Medicamentos_Id = 2,
         Local = "Rua 25 de Abril 25, 2740-262 Porto Salvo, Portugal"
-    }
+    },
+     new Fabricas
+     {
+         Id = 7,
+         Name = "Johnson & Johnson Portugal",
+         Medicamentos_Id = 2,
+         Local = "Rua 25 de Abril 25, 2740-262 Porto Salvo, Portugal"
+     }
+
 
                 );
         }
     }
+
 }

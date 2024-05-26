@@ -1,21 +1,23 @@
-﻿    using Farmacia.Domain.Entities;
+﻿using Farmacia.Application.Common.Interfaces;
+using Farmacia.Domain.Entities;
 using Farmacia.Infrastructure.Data;
+using Farmacia.Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Farmacia.Web.Controllers
 {
     public class Farm : Controller
     {
-        private readonly ApplicationDbContext _db;
+        private readonly IUnityOfWork _unityOfWork;
 
-        public Farm(ApplicationDbContext db)
+        public Farm(IUnityOfWork unityOfWork)
         {
-            _db = db;
+            _unityOfWork = unityOfWork;
         }
 
         public IActionResult Index()
         {
-            var farm=_db.Medicamentos.ToList();
+            var farm=_unityOfWork.Medicamentos.GetAll();
             return View(farm);
         }
         //Get
@@ -29,19 +31,18 @@ namespace Farmacia.Web.Controllers
         {
             if(ModelState.IsValid)
             {
-                _db.Medicamentos.Add(FarmId);
+                _unityOfWork.Medicamentos.Add(FarmId);
                 TempData["success"] = "The medicine has been created sucessfull";
 
-                _db.SaveChanges();
+                _unityOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
-            TempData["error"] = "The medicine has been not created sucessfull";
 
             return View(FarmId);
         }
         public IActionResult Update(int farmId)
         {
-            Medicamentos? obj= _db.Medicamentos.FirstOrDefault(x=>x.Id == farmId);
+            Medicamentos? obj= _unityOfWork.Medicamentos.Get(x=>x.Id == farmId);
             if (obj == null)
             {
                 return RedirectToAction("Error", "Home");
@@ -55,8 +56,8 @@ namespace Farmacia.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                _db.Medicamentos.Update(obj);
-                _db.SaveChanges();
+                _unityOfWork.Medicamentos.Update(obj);
+                _unityOfWork.Save();
                 TempData["success"] = "The medicine has been updatesd sucessfull";
 
                 return RedirectToAction(nameof(Index));
@@ -67,7 +68,7 @@ namespace Farmacia.Web.Controllers
         }
         public IActionResult Delete(int farmId)
         {
-            Medicamentos? obj= _db.Medicamentos.FirstOrDefault(x => x.Id == farmId);
+            Medicamentos? obj= _unityOfWork.Medicamentos.Get(x => x.Id == farmId);
             if (obj == null)
             {
                 return RedirectToAction("Error", "Home");
@@ -78,13 +79,13 @@ namespace Farmacia.Web.Controllers
         [HttpPost]
         public IActionResult Delete(Medicamentos obj)
         {
-            Medicamentos? objFromDb= _db.Medicamentos.FirstOrDefault(_=>_.Id == obj.Id);
+            Medicamentos? objFromDb= _unityOfWork.Medicamentos.Get(_=>_.Id == obj.Id);
             if(objFromDb is not null)
             {
-                _db.Medicamentos.Remove(objFromDb);
+                _unityOfWork.Medicamentos.Remove(objFromDb);
                 TempData["success"] = "The medicine has been deleted sucessfull";
 
-                _db.SaveChanges();
+                _unityOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
             TempData["error"] = "The medicine has been not deleted sucessfull";

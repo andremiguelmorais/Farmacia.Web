@@ -5,7 +5,7 @@
 namespace Farmacia.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddDataBase : Migration
+    public partial class tonew : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

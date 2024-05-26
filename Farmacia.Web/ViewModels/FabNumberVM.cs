@@ -6,7 +6,8 @@ namespace Farmacia.Web.ViewModels
 {
     public class FabNumberVM
     {
-        public Fabricas Fabricas { get; set; } = null!;
+        public Fabricas Fabricas_Number { get; set; } = null!;
+
         [ValidateNever]
         public IEnumerable<SelectListItem>? FabList { get; set; }
     }

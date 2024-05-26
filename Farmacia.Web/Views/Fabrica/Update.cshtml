@@ -4,7 +4,7 @@
     <div class="card-header bg-success bg-gradient ml-0 py-3">
         <div class="row">
             <div class="col-12 text-center">
-                <h2 class="text-white py-2">Create a Fabric</h2>
+                <h2 class="text-white py-2">Update a Fabric</h2>
             </div>
         </div>
     </div>
@@ -17,15 +17,16 @@
                     <span asp-validation-for="Fabricas_Number.Name" class="text-danger"></span>
                 </div>
                 <div class="form-floating py-1 col-12">
-                    <select asp-for="@Model.Fabricas_Number.Medicamentos_Id" asp-items="@Model.FabList" class="form-select border shadow">
+                    <select asp-for="@Model.Fabricas_Number.Medicamentos_Id" asp-items="Model.FabList" class="form-select border shadow">
                         <option disabled selected> --Select a Medicamento--</option>
                     </select>
-                    <label asp-for="Fabricas_Number!.Medicamentos_Id" class="ms-2"></label>
-                    <span asp-validation-for="Fabricas_Number!.Medicamentos_Id" class="text-danger"></span>
+                    <label asp-for="Fabricas_Number.Medicamentos_Id" class="ms-2"></label>
+                    <span asp-validation-for="Fabricas_Number.Medicamentos_Id" class="text-danger"></span>
                 </div>
+                <input asp-for="Fabricas_Number.Id" hidden />
                 <div class="form-floating py-2 col-12">
                     <div class="form-floating py-1 col-12">
-                        <input asp-for="Fabricas_Number.Id" class="form-control border shadow"  />
+                        <input asp-for="Fabricas_Number.Id" class="form-control border shadow" />
                         <label asp-for="Fabricas_Number.Id" class="ms-2"></label>
                         <span asp-validation-for="Fabricas_Number.Id" class="text-danger"></span>
                     </div>
